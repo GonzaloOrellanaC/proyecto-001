@@ -6,6 +6,7 @@ import { api } from '../lib/api';
 import OrganizationsList from '../components/OrganizationsList';
 import { useHistory } from 'react-router-dom';
 import PageContainer from '../components/PageContainer';
+import BackToDashboardButton from '../components/BackToDashboardButton';
 
 const Organizations: React.FC = () => {
   const { user, logout } = useAuth();
@@ -43,6 +44,7 @@ const Organizations: React.FC = () => {
       <IonHeader>
         <IonToolbar>
           <IonTitle>Organizaciones</IonTitle>
+          <BackToDashboardButton slot="start" label="Inicio" />
           <IonButtons slot="end"><IonButton color="medium" onClick={logout}>Salir</IonButton></IonButtons>
         </IonToolbar>
       </IonHeader>

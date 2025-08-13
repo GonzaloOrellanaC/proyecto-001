@@ -5,6 +5,7 @@ import { useAuth } from '../context/AuthContext';
 import { api } from '../lib/api';
 import OrganizationsList from '../components/OrganizationsList';
 import PageContainer from '../components/PageContainer';
+import BackToDashboardButton from '../components/BackToDashboardButton';
 
 const Stores: React.FC = () => {
   const { user, logout } = useAuth();
@@ -58,6 +59,7 @@ const Stores: React.FC = () => {
       <IonHeader>
         <IonToolbar>
           <IonTitle>Locales (Tiendas)</IonTitle>
+          <BackToDashboardButton slot="start" label="Inicio" />
           <IonButtons slot="end"><IonButton color="medium" onClick={logout}>Salir</IonButton></IonButtons>
         </IonToolbar>
       </IonHeader>

@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { api } from '../lib/api';
 import PageContainer from '../components/PageContainer';
+import BackToDashboardButton from '../components/BackToDashboardButton';
 
 const Users: React.FC = () => {
   const history = useHistory();
@@ -20,6 +21,7 @@ const Users: React.FC = () => {
       <IonHeader>
         <IonToolbar>
           <IonTitle>Usuarios</IonTitle>
+          <BackToDashboardButton slot="start" label="Inicio" />
           <IonButtons slot="end">
             <IonButton onClick={() => history.push('/manage/users/new')}>
               <IonIcon icon={addCircleOutline} slot="start" />

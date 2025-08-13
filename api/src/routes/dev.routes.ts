@@ -4,6 +4,11 @@ import { OrganizationModel } from '../models/Organization.js';
 import { createProduct } from '../services/product.service.js';
 import { UserOrganizationModel } from '../models/UserOrganization.js';
 import { register } from '../services/auth.service.js';
+import { ProductModel } from '../models/Product.js';
+import { setStock } from '../services/inventory.service.js';
+import { SeedLogModel } from '../models/SeedLog.js';
+import fs from 'fs';
+import path from 'path';
 
 const router = Router();
 
@@ -63,4 +68,47 @@ router.post('/link-seller-org', async (req, res) => {
     { upsert: true, new: true, setDefaultsOnInsert: true }
   ).lean();
   res.status(201).json({ ok: true, link });
+});
+
+// One-time seed: 150 clothing products + random stock (1-9)
+router.post('/seed/clothing-150', async (req, res) => {
+  try {
+    const key = 'seed:clothing-150@v1';
+    const exists = await SeedLogModel.findOne({ key }).lean();
+    if (exists) return res.status(409).json({ ok: false, error: 'Seed already applied' });
+
+    const filePath = path.join(process.cwd(), 'seed', 'products.clothing.150.json');
+    const raw = fs.readFileSync(filePath, 'utf-8');
+    const data = JSON.parse(raw) as { orgId: string; storeId: string; products: any[] };
+    const { orgId, storeId } = data;
+
+    // Build 150 products from template list by cycling and varying SKU suffixes
+    const base = data.products;
+    const products: any[] = [];
+    let counter = 1;
+    while (products.length < 150) {
+      for (const p of base) {
+        if (products.length >= 150) break;
+        const idx = counter.toString().padStart(3, '0');
+        const sku = `${p.sku}-${idx}`;
+        products.push({ ...p, orgId, sku });
+        counter++;
+      }
+    }
+
+    // Upsert by orgId+sku; then set random stock per product for the given store
+    const createdIds: string[] = [];
+    for (const p of products) {
+      const update = { $setOnInsert: { orgId, name: p.name, price: p.price, description: p.description, manufacturer: p.manufacturer, sizes: p.sizes } } as any;
+      const doc = await ProductModel.findOneAndUpdate({ orgId, sku: p.sku }, update, { new: true, upsert: true, setDefaultsOnInsert: true });
+      createdIds.push(String(doc._id));
+      const qty = Math.floor(Math.random() * 9) + 1; // 1..9
+      await setStock(orgId, storeId, String(doc._id), qty);
+    }
+
+    await SeedLogModel.create({ key });
+    res.status(201).json({ ok: true, count: createdIds.length });
+  } catch (e: any) {
+    res.status(400).json({ ok: false, error: e.message });
+  }
 });

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, IonLabel, IonButton } from '@ionic/react';
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, IonLabel, IonButton, IonModal, IonSelect, IonSelectOption } from '@ionic/react';
 import { useAuth } from '../context/AuthContext';
 import { api } from '../lib/api';
 import { useHistory } from 'react-router-dom';
@@ -9,13 +9,24 @@ const SellerDashboard: React.FC = () => {
   const { user, logout } = useAuth();
   const history = useHistory();
   const [orgs, setOrgs] = useState<any[]>([]);
+  const [stores, setStores] = useState<any[]>([]);
+  const [selectedOrg, setSelectedOrg] = useState<string>('');
+  const [selectedStore, setSelectedStore] = useState<string>('');
+  const [showStoreModal, setShowStoreModal] = useState(false);
 
   useEffect(() => {
     api.listMyOrganizations().then(r => setOrgs(r.organizations)).catch(() => setOrgs([]));
   }, []);
 
   const startPOS = (orgId: string) => {
-    history.push(`/pos/${orgId}`);
+    setSelectedOrg(orgId);
+    setSelectedStore('');
+    api.listStores(orgId).then(r => { setStores(r.stores || []); setShowStoreModal(true); }).catch(() => setStores([]));
+  };
+  const confirmStore = () => {
+    if (!selectedOrg || !selectedStore) return;
+    setShowStoreModal(false);
+    history.push(`/pos/${selectedOrg}?storeId=${encodeURIComponent(selectedStore)}`);
   };
   return (
     <IonPage>
@@ -37,6 +48,20 @@ const SellerDashboard: React.FC = () => {
             ))}
           </IonList>
           <IonButton color="medium" onClick={logout} className="ion-margin-top">Salir</IonButton>
+          <IonModal isOpen={showStoreModal} onDidDismiss={() => setShowStoreModal(false)}>
+            <div className="ion-padding">
+              <h2>Selecciona la tienda</h2>
+              <IonSelect value={selectedStore} placeholder="Elige una tienda" onIonChange={e => setSelectedStore(String(e.detail.value))}>
+                {stores.map(s => (
+                  <IonSelectOption key={s._id} value={s._id}>{s.name}</IonSelectOption>
+                ))}
+              </IonSelect>
+              <div className="ion-margin-top">
+                <IonButton color="medium" onClick={() => setShowStoreModal(false)}>Cancelar</IonButton>
+                <IonButton color="primary" onClick={confirmStore} className="ion-margin-start" disabled={!selectedStore}>Continuar</IonButton>
+              </div>
+            </div>
+          </IonModal>
         </PageContainer>
       </IonContent>
     </IonPage>

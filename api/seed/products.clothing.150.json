@@ -1,0 +1,20 @@
+{
+  "orgId": "689b9cdaabddaaec71ca19bb",
+  "storeId": "689c79ad1d42c6707e5dcb8e",
+  "products": [
+    { "category": "polerón", "gender": "hombre", "sku": "PH-001", "name": "Polerón capucha clásico", "price": 24990, "description": "Polerón de algodón con capucha y bolsillo canguro.", "manufacturer": { "brand": "AndesWear", "country": "Chile" }, "sizes": ["S","M","L","XL"] },
+    { "category": "polerón", "gender": "mujer",  "sku": "PM-002", "name": "Polerón térmico", "price": 28990, "description": "Tejido térmico suave, ideal para días fríos.", "manufacturer": { "brand": "Patagonia Sur", "country": "Argentina" }, "sizes": ["XS","S","M","L"] },
+    { "category": "pantalón", "gender": "hombre", "sku": "PAH-003", "name": "Pantalón chino slim", "price": 31990, "description": "Corte slim, algodón elástico para mayor comodidad.", "manufacturer": { "brand": "Cordillera", "country": "Perú" }, "sizes": ["28","30","32","34","36"] },
+    { "category": "pantalón", "gender": "mujer",  "sku": "PAM-004", "name": "Pantalón palazzo", "price": 34990, "description": "Tiro alto con caída amplia y elegante.", "manufacturer": { "brand": "Luna Moda", "country": "Chile" }, "sizes": ["34","36","38","40","42"] },
+    { "category": "camisa",   "gender": "hombre", "sku": "CH-005",  "name": "Camisa oxford", "price": 27990, "description": "Camisa oxford de algodón, cuello botón.", "manufacturer": { "brand": "AndesWear", "country": "Chile" }, "sizes": ["S","M","L","XL"] },
+    { "category": "camisa",   "gender": "mujer",  "sku": "CM-006",  "name": "Blusa satinada", "price": 29990, "description": "Blusa de satén con caída suave.", "manufacturer": { "brand": "Luna Moda", "country": "Chile" }, "sizes": ["XS","S","M","L"] },
+    { "category": "abrigo",   "gender": "hombre", "sku": "AH-007",  "name": "Abrigo lana clásico", "price": 59990, "description": "Abrigo de lana mezcla, corte clásico.", "manufacturer": { "brand": "Sur Urbano", "country": "Uruguay" }, "sizes": ["S","M","L","XL"] },
+    { "category": "abrigo",   "gender": "mujer",  "sku": "AM-008",  "name": "Trench impermeable", "price": 54990, "description": "Capa impermeable, cinturón ajustable.", "manufacturer": { "brand": "Patagonia Sur", "country": "Argentina" }, "sizes": ["XS","S","M","L","XL"] },
+    { "category": "zapato",   "gender": "hombre", "sku": "ZAH-009", "name": "Zapato cuero derby", "price": 44990, "description": "Calzado de cuero legítimo, suela antideslizante.", "manufacturer": { "brand": "Cordillera", "country": "Perú" }, "sizes": ["39","40","41","42","43","44"] },
+    { "category": "zapato",   "gender": "mujer",  "sku": "ZAM-010", "name": "Zapato taco medio", "price": 43990, "description": "Tacón cómodo para uso diario.", "manufacturer": { "brand": "Luna Moda", "country": "Chile" }, "sizes": ["35","36","37","38","39","40"] },
+    { "category": "zapatilla","gender": "hombre", "sku": "ZZH-011", "name": "Zapatilla running espuma", "price": 37990, "description": "Amortiguación de alto rebote para entrenamiento.", "manufacturer": { "brand": "AndesWear", "country": "Chile" }, "sizes": ["39","40","41","42","43","44"] },
+    { "category": "zapatilla","gender": "mujer",  "sku": "ZZM-012", "name": "Zapatilla urbana minimal", "price": 35990, "description": "Diseño minimalista y liviano.", "manufacturer": { "brand": "Sur Urbano", "country": "Uruguay" }, "sizes": ["35","36","37","38","39","40"] }
+    
+    
+  ]
+}

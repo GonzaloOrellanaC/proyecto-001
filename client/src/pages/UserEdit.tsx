@@ -4,6 +4,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import { api } from '../lib/api';
 import { useAuth } from '../context/AuthContext';
 import PageContainer from '../components/PageContainer';
+import BackToDashboardButton from '../components/BackToDashboardButton';
 
 type RouteParams = { userId: string };
 
@@ -134,6 +135,7 @@ const UserEdit: React.FC = () => {
       <IonHeader>
         <IonToolbar>
           <IonTitle>Editar usuario</IonTitle>
+          <BackToDashboardButton slot="start" label="Inicio" />
           <IonButtons slot="end"><IonButton color="medium" onClick={logout}>Salir</IonButton></IonButtons>
         </IonToolbar>
       </IonHeader>

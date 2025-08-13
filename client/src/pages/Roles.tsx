@@ -4,6 +4,7 @@ import { saveOutline } from 'ionicons/icons';
 import { useAuth } from '../context/AuthContext';
 import { api } from '../lib/api';
 import PageContainer from '../components/PageContainer';
+import BackToDashboardButton from '../components/BackToDashboardButton';
 
 const Roles: React.FC = () => {
   const { logout } = useAuth();
@@ -62,6 +63,7 @@ const Roles: React.FC = () => {
       <IonHeader>
         <IonToolbar>
           <IonTitle>Roles</IonTitle>
+          <BackToDashboardButton slot="start" label="Inicio" />
           <IonButtons slot="end"><IonButton color="medium" onClick={logout}>Salir</IonButton></IonButtons>
         </IonToolbar>
       </IonHeader>

@@ -38,10 +38,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           const rolesRes = await api.listRoles();
           const roleId = (res.user as any)?.roleId ? String((res.user as any).roleId) : null;
           const role = rolesRes.roles?.find((r: any) => String(r._id) === roleId);
-          const perms = Array.isArray(role?.permissions) ? role.permissions : ((res.user as any)?.role === 'cashier' ? ['sell'] : []);
-          if (!cancelled) setPermissions(perms);
+          const basePerms: string[] = Array.isArray(role?.permissions) ? role.permissions : [];
+          const finalPerms = new Set<string>(basePerms);
+          // Alias de ventas para compatibilidad del front: si tiene sales:create o es cashier, añade 'sell'
+          if (finalPerms.has('sales:create') || (res.user as any)?.role === 'cashier') finalPerms.add('sell');
+          if (!cancelled) setPermissions(Array.from(finalPerms));
         } catch {
-          if (!cancelled) setPermissions([]);
+          if (!cancelled) {
+            const isCashier = (res.user as any)?.role === 'cashier';
+            setPermissions(isCashier ? ['sell'] : []);
+          }
         }
       } catch {
         try { await clearToken(); } catch {}
@@ -63,10 +69,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const rolesRes = await api.listRoles();
       const roleId = (res.user as any)?.roleId ? String((res.user as any).roleId) : null;
       const role = rolesRes.roles?.find((r: any) => String(r._id) === roleId);
-      const perms = Array.isArray(role?.permissions) ? role.permissions : ((res.user as any)?.role === 'cashier' ? ['sell'] : []);
-      setPermissions(perms);
+  const basePerms: string[] = Array.isArray(role?.permissions) ? role.permissions : [];
+  const finalPerms = new Set<string>(basePerms);
+  if (finalPerms.has('sales:create') || (res.user as any)?.role === 'cashier') finalPerms.add('sell');
+  setPermissions(Array.from(finalPerms));
     } catch {
-      setPermissions([]);
+  setPermissions((res.user as any)?.role === 'cashier' ? ['sell'] : []);
     }
     return res.user as NonNullable<User>;
   };

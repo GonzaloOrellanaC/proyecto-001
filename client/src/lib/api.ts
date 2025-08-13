@@ -87,4 +87,7 @@ export const api = {
   devCreateOrg: (name: string, token?: string) => request('/dev/org', { method: 'POST', body: JSON.stringify({ name }), headers: token ? { 'x-setup-token': token } : {} }) as Promise<{ ok: boolean; org: any }>,
   devCreateSeller: (email: string, password: string, name: string, token?: string) => request('/dev/seller', { method: 'POST', body: JSON.stringify({ email, password, name }), headers: token ? { 'x-setup-token': token } : {} }) as Promise<{ ok: boolean; user: any }>,
   devCreateProduct: (data: { orgId: string; sku: string; name: string; price: number }, token?: string) => request('/dev/product', { method: 'POST', body: JSON.stringify(data), headers: token ? { 'x-setup-token': token } : {} }) as Promise<{ ok: boolean; product: any }>,
+  // Sales (seller)
+  createSale: (data: { orgId: string; storeId: string; items: Array<{ productId: string; qty: number }> }) =>
+    request('/sales', { method: 'POST', body: JSON.stringify(data) }) as Promise<{ ok: boolean; sale: any }>,
 };

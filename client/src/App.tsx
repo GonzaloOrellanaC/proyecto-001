@@ -71,7 +71,7 @@ const App: React.FC = () => (
             <ProtectedRoute exact path="/manage/users/new" roles={['admin']} permissions={['manage-users']} component={UserEdit} />
             <ProtectedRoute exact path="/manage/users/:userId" roles={['admin']} permissions={['manage-users']} component={UserEdit} />
             <ProtectedRoute exact path="/manage/roles" roles={['admin']} permissions={['manage-roles']} component={Roles} />
-            <ProtectedRoute exact path="/seller" roles={['cashier']} permissions={['sell']} component={SellerDashboard} />
+            <ProtectedRoute exact path="/seller" roles={['cashier']} component={SellerDashboard} />
             <ProtectedRoute exact path="/pos/:orgId" roles={['cashier']} permissions={['sell']} component={POS} />
             <ProtectedRoute exact path="/home" component={Home} />
             <Route exact path="/" component={RootRedirect} />
