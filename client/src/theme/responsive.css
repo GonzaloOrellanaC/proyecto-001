@@ -1,0 +1,59 @@
+/* Responsive content container for comfortable reading widths */
+
+.pv-container {
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 12px;
+  padding-right: 12px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Small phones: minimal horizontal margin (already via padding) */
+@media (min-width: 360px) {
+  .pv-container {
+    max-width: 340px;
+  }
+}
+
+/* Phones portrait */
+@media (min-width: 400px) {
+  .pv-container {
+    max-width: 380px;
+  }
+}
+
+/* Phones landscape / small tablets */
+@media (min-width: 576px) {
+  .pv-container {
+    max-width: 540px;
+  }
+}
+
+/* Tablets */
+@media (min-width: 768px) {
+  .pv-container {
+    max-width: 720px;
+  }
+}
+
+/* Desktop */
+@media (min-width: 992px) {
+  .pv-container {
+    max-width: 900px;
+  }
+}
+
+/* Large desktop */
+@media (min-width: 1200px) {
+  .pv-container {
+    max-width: 1080px;
+  }
+}
+
+/* Very wide */
+@media (min-width: 1440px) {
+  .pv-container {
+    max-width: 1240px;
+  }
+}
